@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mud-mcp"
+version = "1.0.0"
+description = "Cocapn Fleet module — mud-mcp"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["cocapn", "fleet"]
+
+[project.scripts]
+mud_mcp = "agent:main"
