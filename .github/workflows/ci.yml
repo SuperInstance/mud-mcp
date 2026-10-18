@@ -1,0 +1,27 @@
+name: Node CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Declared entry points must exist in the build output
+        run: |
+          node -e "const p=require('./package.json'),fs=require('fs');const e=[p.main].filter(Boolean);const miss=e.filter(f=>!fs.existsSync(f));if(miss.length){console.error('DECLARED BUT NOT BUILT: '+miss.join(', '));process.exit(1)}console.log('entry points present: '+e.join(', '))"
+      - run: npm run guard
+      - run: npm test --if-present
