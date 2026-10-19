@@ -1,9 +1,12 @@
 {
   "name": "mud-mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Multi-User Dungeon server using the Model Context Protocol",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "mud-mcp": "dist/index.js"
+  },
   "files": [
     "dist",
     "README.md",
